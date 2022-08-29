@@ -40,7 +40,54 @@ input_data.send_keys(today)                      # заполняет поле �
 get_date = browser.find_element(By.ID, "btGetReport")   # ищет кнопку по значению по ID
 get_date.click()                                        # нажимает кнопку получить данные
 
-time.sleep(15) # открываем сайт на 15сек
+# счетчик количества услуг
+tr_count = 0
+
+# находим class odd и class even
+tr_odd = WebDriverWait(browser, 10).until(EC.presence_of_all_elements_located((By.CLASS_NAME, "odd")))
+for s in tr_odd:
+    tr_count += 1
+
+tr_even = WebDriverWait(browser, 10).until(EC.presence_of_all_elements_located((By.CLASS_NAME, "even")))
+for s in tr_even:
+    tr_count += 1
+
+# функция расчета з/п
+def salary(master_id):
+
+    salary_massage = ''
+    # счетчик зп
+    salary_count = 0
+    # перебираем все строки с услугами и делаем нужную выборку
+    for i in range(3, tr_count + 3):
+        cost = browser.find_element(By.XPATH, f'//*[@id="ReportTable"]/tbody/tr[{i}]/td[5]').text # td[5] - стоимость услуги
+        code = browser.find_element(By.XPATH, f'//*[@id="ReportTable"]/tbody/tr[{i}]/td[6]').text  # td[6] - стоимость услуги
+        title = browser.find_element(By.XPATH, f'//*[@id="ReportTable"]/tbody/tr[{i}]/td[7]').text  # td[7] - наименование услуги
+        name = browser.find_element(By.XPATH, f'//*[@id="ReportTable"]/tbody/tr[{i}]/td[8]').text  # td[8] - имя мастера
+        date_time = browser.find_element(By.XPATH, f'//*[@id="ReportTable"]/tbody/tr[{i}]/td[11]').text  # td[11] - дата и время
+        if code == 1:
+            continue
+        elif master_id == name:
+            salary_count += float(cost) / 2
+            salary_massage += f"{date_time[11:16]} {title} {cost}р з/п = {salary_count}р /n"
+        else:
+            continue
+
+        #print(f"{date_time[11:16]} {title} {cost}р {name}")
+    print(salary_massage)
+    print(f'Итого з/п = {salary_count}р')
+
+salary('Алеся')
+
+print(tr_count)
+
+time.sleep(5) # ждем 5сек
 
 browser.close() #закрываем сайт
+
+
+# td[6] – код услуги
+# td[7] – наименование услуги
+# td[8] – имя мастера
+# td[11] – дата и время платежа
 
