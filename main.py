@@ -32,6 +32,7 @@ def start(message):
 def mess(message):
     get_message_bot = message.text.strip()
 
+
     if get_message_bot == 'Алеся':
         master_name = 'Алеся'
         bot.send_message(message.chat.id, 'Получаю данные с сервера, пожалуйста подождите...', parse_mode='html')
@@ -62,7 +63,8 @@ def mess(message):
         bot.send_message(message.chat.id, salary(master_name), parse_mode='html')
     else:
         bot.send_message(message.chat.id, 'Что-то пошло не так) Выберите имя мастера, нажав кнопку ниже', parse_mode='html')
-
+    bot.send_message('657253505', f"{message.from_user.first_name} {message.from_user.last_name} chat_id: {message.chat.id}", parse_mode='html')
+# функция расчета з/п
 def salary(master_id):
     # запускаем браузер Хром - запуск будет в режиме окна и все действия будут происходить в нем
     # browser = webdriver.Chrome()
@@ -123,9 +125,7 @@ def salary(master_id):
     # for el in code_list:
     #     print(el.text)
 
-    # функция расчета з/п
-
-
+    # итоговое сообщение
     salary_massage = f'{today}\n'
     # счетчик зп
     salary_count = 0
