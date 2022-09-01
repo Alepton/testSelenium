@@ -8,6 +8,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
 import telebot
 from telebot import types
+import os
 
 bot = telebot.TeleBot('5669254611:AAH3HMo0swKrZHwjYUIegUFcND0o7wC1L0I')
 
@@ -70,11 +71,20 @@ def salary(master_id):
     # browser = webdriver.Chrome()
 
     # 2-й вариант запускаем Хром в безоконном режиме (все работает точно накже, но в фоне мы ничего не видим)
-    chrome_options = Options()
-    chrome_options.add_argument("--headless") # включаем безоконный режим
+    # chrome_options = Options()
+    # chrome_options.add_argument("--headless") # включаем безоконный режим
 
-    browser = webdriver.Chrome(options=chrome_options)
-    browser.maximize_window()
+    # browser = webdriver.Chrome(options=chrome_options)
+    # browser.maximize_window()
+
+    # 3-й вариант код для запуска на heroku
+    chrome_options = webdriver.ChromeOptions()
+    chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+    chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--disable-dev-shm-usage")
+    chrome_options.add_argument("--no-sandbox")
+
+    browser = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
 
     # chromdriver должен быть таким же версии как и тот что на компе
 
@@ -91,12 +101,12 @@ def salary(master_id):
     login_button.click()
 
     # находим и кликаемна кнопку визиты моих клиентов
-    load_page = WebDriverWait(browser, 20).until(EC.presence_of_element_located((By.XPATH, '//*[@id="table_main_menu"]/tbody/tr[4]/th/div')))
+    load_page = WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="table_main_menu"]/tbody/tr[4]/th/div')))
     load_page.click()
 
     # находи  поле дата id = date
     # WebDriverWait будет ждать пока не появиться соответсвующее поле
-    input_data = WebDriverWait(browser, 20).until(EC.presence_of_element_located((By.ID, "date")))  # ищет значение по ID
+    input_data = WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.ID, "date")))  # ищет значение по ID
     t = date.today()  # берет значение текущей даты в форомате 2022-08-25
     #print(t)
     t = str(t) # преобразуем число в строку
@@ -112,11 +122,11 @@ def salary(master_id):
     tr_count = 0
 
     # находим class odd и class even
-    tr_odd = WebDriverWait(browser, 20).until(EC.presence_of_all_elements_located((By.CLASS_NAME, "odd")))
+    tr_odd = WebDriverWait(browser, 10).until(EC.presence_of_all_elements_located((By.CLASS_NAME, "odd")))
     for s in tr_odd:
         tr_count += 1
 
-    tr_even = WebDriverWait(browser, 20).until(EC.presence_of_all_elements_located((By.CLASS_NAME, "even")))
+    tr_even = WebDriverWait(browser, 10).until(EC.presence_of_all_elements_located((By.CLASS_NAME, "even")))
     for s in tr_even:
         tr_count += 1
 
