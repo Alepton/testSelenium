@@ -91,12 +91,12 @@ def salary(master_id):
     login_button.click()
 
     # находим и кликаемна кнопку визиты моих клиентов
-    load_page = WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="table_main_menu"]/tbody/tr[4]/th/div')))
+    load_page = WebDriverWait(browser, 20).until(EC.presence_of_element_located((By.XPATH, '//*[@id="table_main_menu"]/tbody/tr[4]/th/div')))
     load_page.click()
 
     # находи  поле дата id = date
     # WebDriverWait будет ждать пока не появиться соответсвующее поле
-    input_data = WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.ID, "date")))  # ищет значение по ID
+    input_data = WebDriverWait(browser, 20).until(EC.presence_of_element_located((By.ID, "date")))  # ищет значение по ID
     t = date.today()  # берет значение текущей даты в форомате 2022-08-25
     #print(t)
     t = str(t) # преобразуем число в строку
@@ -112,11 +112,11 @@ def salary(master_id):
     tr_count = 0
 
     # находим class odd и class even
-    tr_odd = WebDriverWait(browser, 10).until(EC.presence_of_all_elements_located((By.CLASS_NAME, "odd")))
+    tr_odd = WebDriverWait(browser, 20).until(EC.presence_of_all_elements_located((By.CLASS_NAME, "odd")))
     for s in tr_odd:
         tr_count += 1
 
-    tr_even = WebDriverWait(browser, 10).until(EC.presence_of_all_elements_located((By.CLASS_NAME, "even")))
+    tr_even = WebDriverWait(browser, 20).until(EC.presence_of_all_elements_located((By.CLASS_NAME, "even")))
     for s in tr_even:
         tr_count += 1
 
