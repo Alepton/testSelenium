@@ -74,8 +74,8 @@ def salary(master_id):
     # chrome_options = Options()
     # chrome_options.add_argument("--headless") # включаем безоконный режим
 
-    # browser = webdriver.Chrome(options=chrome_options)
-    # browser.maximize_window()
+    # driver = webdriver.Chrome(options=chrome_options)
+    # driver.maximize_window()
 
     # 3-й вариант код для запуска на heroku
     chrome_options = webdriver.ChromeOptions()
@@ -84,29 +84,29 @@ def salary(master_id):
     chrome_options.add_argument("--disable-dev-shm-usage")
     chrome_options.add_argument("--no-sandbox")
 
-    browser = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
+    driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
 
     # chromdriver должен быть таким же версии как и тот что на компе
 
-    browser.get('http://chio.proekt-sp.ru/lk_login.html')
+    driver.get('http://chio.proekt-sp.ru/lk_login.html')
 
-    input_login = browser.find_element(By.ID, "login")  # ищет значение поля по ID
+    input_login = driver.find_element(By.ID, "login")  # ищет значение поля по ID
     input_login.send_keys("novopolochsk")               # заполняет логин novopolochsk
 
-    input_password = browser.find_element(By.ID, "pass")
+    input_password = driver.find_element(By.ID, "pass")
     input_password.send_keys("nk129675")                # заполняет пароль nk129675
 
     # находим и кликаем по кнопке
-    login_button = browser.find_element(By.ID, "btLogin")
+    login_button = driver.find_element(By.ID, "btLogin")
     login_button.click()
 
     # находим и кликаемна кнопку визиты моих клиентов
-    load_page = WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="table_main_menu"]/tbody/tr[4]/th/div')))
+    load_page = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="table_main_menu"]/tbody/tr[4]/th/div')))
     load_page.click()
 
     # находи  поле дата id = date
     # WebDriverWait будет ждать пока не появиться соответсвующее поле
-    input_data = WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.ID, "date")))  # ищет значение по ID
+    input_data = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, "date")))  # ищет значение по ID
     t = date.today()  # берет значение текущей даты в форомате 2022-08-25
     #print(t)
     t = str(t) # преобразуем число в строку
@@ -115,18 +115,18 @@ def salary(master_id):
     input_data.send_keys(today)                      # заполняет поле дата
 
     # нажимаем кнопку получения данных с сервера
-    get_date = browser.find_element(By.ID, "btGetReport")   # ищет кнопку по значению по ID
+    get_date = driver.find_element(By.ID, "btGetReport")   # ищет кнопку по значению по ID
     get_date.click()                                        # нажимает кнопку получить данные
 
     # счетчик количества услуг
     tr_count = 0
 
     # находим class odd и class even
-    tr_odd = WebDriverWait(browser, 10).until(EC.presence_of_all_elements_located((By.CLASS_NAME, "odd")))
+    tr_odd = WebDriverWait(driver, 10).until(EC.presence_of_all_elements_located((By.CLASS_NAME, "odd")))
     for s in tr_odd:
         tr_count += 1
 
-    tr_even = WebDriverWait(browser, 10).until(EC.presence_of_all_elements_located((By.CLASS_NAME, "even")))
+    tr_even = WebDriverWait(driver, 10).until(EC.presence_of_all_elements_located((By.CLASS_NAME, "even")))
     for s in tr_even:
         tr_count += 1
 
@@ -141,11 +141,11 @@ def salary(master_id):
     salary_count = 0
     # перебираем все строки с услугами и делаем нужную выборку
     for i in range(3, tr_count + 3):
-        cost = browser.find_element(By.XPATH, f'//*[@id="ReportTable"]/tbody/tr[{i}]/td[5]').text # td[5] - стоимость услуги
-        code = browser.find_element(By.XPATH, f'//*[@id="ReportTable"]/tbody/tr[{i}]/td[6]').text  # td[6] - код услуги
-        title = browser.find_element(By.XPATH, f'//*[@id="ReportTable"]/tbody/tr[{i}]/td[7]').text  # td[7] - наименование услуги
-        name = browser.find_element(By.XPATH, f'//*[@id="ReportTable"]/tbody/tr[{i}]/td[8]').text  # td[8] - имя мастера
-        date_time = browser.find_element(By.XPATH, f'//*[@id="ReportTable"]/tbody/tr[{i}]/td[11]').text  # td[11] - дата и время
+        cost = driver.find_element(By.XPATH, f'//*[@id="ReportTable"]/tbody/tr[{i}]/td[5]').text # td[5] - стоимость услуги
+        code = driver.find_element(By.XPATH, f'//*[@id="ReportTable"]/tbody/tr[{i}]/td[6]').text  # td[6] - код услуги
+        title = driver.find_element(By.XPATH, f'//*[@id="ReportTable"]/tbody/tr[{i}]/td[7]').text  # td[7] - наименование услуги
+        name = driver.find_element(By.XPATH, f'//*[@id="ReportTable"]/tbody/tr[{i}]/td[8]').text  # td[8] - имя мастера
+        date_time = driver.find_element(By.XPATH, f'//*[@id="ReportTable"]/tbody/tr[{i}]/td[11]').text  # td[11] - дата и время
         if code == "3307" or code == "2050" or code == "2395":
             continue
         elif master_id == name:
@@ -167,7 +167,7 @@ def salary(master_id):
 
     #print(tr_count)
     time.sleep(5) # ждем 5сек
-    browser.close() #закрываем сайт
+    driver.close() #закрываем сайт
 
     # td[6] – код услуги
     # td[7] – наименование услуги
