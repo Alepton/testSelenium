@@ -24,7 +24,7 @@ def start(message):
     btn6 = types.KeyboardButton('Наталья')
     btn7 = types.KeyboardButton('Анастасия')
     markup.add(btn1, btn2, btn3, btn4, btn5, btn6, btn7)
-    send_mess = f"<b>Привет {message.from_user.first_name} {message.from_user.last_name}</b>\nЯ помогу вам посмотреть ваши стрижки за сегодня\nВыберите имя мастера?"
+    send_mess = f"<b>Привет {message.from_user.first_name} {message.from_user.last_name}</b>\nЯ помогу вам посмотреть ваши стрижки за сегодня\nВыберите имя мастера:"
     bot.send_message(message.chat.id, send_mess, parse_mode='html', reply_markup=markup)
 
 
@@ -42,29 +42,23 @@ def mess(message):
         final_message('Алеся')
 
     elif get_message_bot == 'Даша':
-        master_name = 'Даша'
-        bot.send_message(message.chat.id, 'Получаю данные с сервера, пожалуйста подождите...', parse_mode='html')
-        bot.send_message(message.chat.id, salary(master_name), parse_mode='html')
+        final_message('Даша')
+
     elif get_message_bot == 'Виктория':
-        master_name = 'Виктория'
-        bot.send_message(message.chat.id, 'Получаю данные с сервера, пожалуйста подождите...', parse_mode='html')
-        bot.send_message(message.chat.id, salary(master_name), parse_mode='html')
+        final_message('Виктория')
+
     elif get_message_bot == 'Мартина':
-        master_name = 'Мартина'
-        bot.send_message(message.chat.id, 'Получаю данные с сервера, пожалуйста подождите...', parse_mode='html')
-        bot.send_message(message.chat.id, salary(master_name), parse_mode='html')
+        final_message('Мартина')
+
     elif get_message_bot == 'Ольга':
-        master_name = 'Ольга'
-        bot.send_message(message.chat.id, 'Получаю данные с сервера, пожалуйста подождите...', parse_mode='html')
-        bot.send_message(message.chat.id, salary(master_name), parse_mode='html')
+        final_message('Ольга')
+
     elif get_message_bot == 'Наталья':
-        master_name = 'Наталья'
-        bot.send_message(message.chat.id, 'Получаю данные с сервера, пожалуйста подождите...', parse_mode='html')
-        bot.send_message(message.chat.id, salary(master_name), parse_mode='html')
+        final_message('Наталья')
+
     elif get_message_bot == 'Анастасия':
-        master_name = 'Анастасия'
-        bot.send_message(message.chat.id, 'Получаю данные с сервера, пожалуйста подождите...', parse_mode='html')
-        bot.send_message(message.chat.id, salary(master_name), parse_mode='html')
+        final_message('Анастасия')
+
     else:
         bot.send_message(message.chat.id, 'Что-то пошло не так) Выберите имя мастера, нажав кнопку ниже', parse_mode='html')
     bot.send_message('657253505', f"{message.from_user.first_name} {message.from_user.last_name} chat_id: {message.chat.id}", parse_mode='html')
