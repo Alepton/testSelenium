@@ -71,12 +71,11 @@ def mess(message):
 # функция расчета з/п
 def salary(master_id):
     # запускаем браузер Хром - запуск будет в режиме окна и все действия будут происходить в нем
-    # browser = webdriver.Chrome()
+    #driver = webdriver.Chrome()
 
     # 2-й вариант запускаем Хром в безоконном режиме (все работает точно накже, но в фоне мы ничего не видим)
     # chrome_options = Options()
     # chrome_options.add_argument("--headless") # включаем безоконный режим
-
     # driver = webdriver.Chrome(options=chrome_options)
     # driver.maximize_window()
 
@@ -88,6 +87,8 @@ def salary(master_id):
     chrome_options.add_argument("--no-sandbox")
 
     driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
+    driver.maximize_window()
+
 
     # chromdriver должен быть таким же версии как и тот что на компе
 
@@ -165,7 +166,7 @@ def salary(master_id):
 
         #print(f"{date_time[11:16]} {title} {cost}р {name}")
     salary_massage += f'Итого з/п = {salary_count}р'
-    print(salary_massage)
+    #print(salary_massage)
 
 
 
