@@ -34,10 +34,13 @@ def mess(message):
     get_message_bot = message.text.strip()
 
 
-    if get_message_bot == 'Алеся':
-        master_name = 'Алеся'
-        bot.send_message(message.chat.id, 'Получаю данные с сервера, пожалуйста подождите...', parse_mode='html')
+    def final_message(master_name):
+        bot.send_message(message.chat.id, 'Получаю данные с сервера, это может занять несколько минут, пожалуйста подождите...', parse_mode='html')
         bot.send_message(message.chat.id, salary(master_name), parse_mode='html')
+
+    if get_message_bot == 'Алеся':
+        final_message('Алеся')
+
     elif get_message_bot == 'Даша':
         master_name = 'Даша'
         bot.send_message(message.chat.id, 'Получаю данные с сервера, пожалуйста подождите...', parse_mode='html')
@@ -112,7 +115,9 @@ def salary(master_id):
     t = str(t) # преобразуем число в строку
     today = f'{t[8]+t[9]}.{t[5]+t[6]}.{t[0]+t[1]+t[2]+t[3]}' # преобразуем дату к нужному формату 25.08.2022
     #print(today)
+
     input_data.send_keys(today)                      # заполняет поле дата
+    time.sleep(1)  # ждем 1сек
 
     # нажимаем кнопку получения данных с сервера
     get_date = driver.find_element(By.ID, "btGetReport")   # ищет кнопку по значению по ID
