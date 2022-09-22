@@ -65,7 +65,7 @@ def mess(message):
 # функция расчета з/п
 def salary(master_id):
     #запускаем браузер Хром - запуск будет в режиме окна и все действия будут происходить в нем
-    #driver = webdriver.Chrome()
+    driver = webdriver.Chrome()
 
     # 2-й вариант запускаем Хром в безоконном режиме (все работает точно накже, но в фоне мы ничего не видим)
     # chrome_options = Options()
@@ -74,14 +74,14 @@ def salary(master_id):
     # driver.maximize_window()
 
     # 3-й вариант код для запуска на heroku
-    chrome_options = webdriver.ChromeOptions()
-    chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-    chrome_options.add_argument("--headless")
-    chrome_options.add_argument("--disable-dev-shm-usage")
-    chrome_options.add_argument("--no-sandbox")
-
-    driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
-    driver.maximize_window()
+    # chrome_options = webdriver.ChromeOptions()
+    # chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+    # chrome_options.add_argument("--headless")
+    # chrome_options.add_argument("--disable-dev-shm-usage")
+    # chrome_options.add_argument("--no-sandbox")
+    #
+    # driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
+    # driver.maximize_window()
 
 
     # chromdriver должен быть таким же версии как и тот что на компе
@@ -111,8 +111,8 @@ def salary(master_id):
     today = f'{t[8]+t[9]}.{t[5]+t[6]}.{t[0]+t[1]+t[2]+t[3]}' # преобразуем дату к нужному формату 25.08.2022
     #print(today)
 
-    input_data.send_keys(today)                      # заполняет поле дата
-    time.sleep(1)  # ждем 1сек
+    #input_data.send_keys(today)                      # заполняет поле дата
+    #time.sleep(1)  # ждем 1сек
 
     # нажимаем кнопку получения данных с сервера
     get_date = driver.find_element(By.ID, "btGetReport")   # ищет кнопку по значению по ID
@@ -146,7 +146,10 @@ def salary(master_id):
         title = driver.find_element(By.XPATH, f'//*[@id="ReportTable"]/tbody/tr[{i}]/td[7]').text  # td[7] - наименование услуги
         name = driver.find_element(By.XPATH, f'//*[@id="ReportTable"]/tbody/tr[{i}]/td[8]').text  # td[8] - имя мастера
         date_time = driver.find_element(By.XPATH, f'//*[@id="ReportTable"]/tbody/tr[{i}]/td[11]').text  # td[11] - дата и время
-        if code == "3307" or code == "2050" or code == "2395":
+        #print (date_time[:10])
+        if code == "3307" or code == "2050" or code == "2395" or code == "1722":
+            continue
+        elif date_time[:10] != today:
             continue
         elif master_id == name:
             if code == "26":
