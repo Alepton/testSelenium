@@ -64,7 +64,7 @@ def mess(message):
     bot.send_message('657253505', f"{message.from_user.first_name} {message.from_user.last_name} chat_id: {message.chat.id}", parse_mode='html')
 # функция расчета з/п
 def salary(master_id):
-    # запускаем браузер Хром - запуск будет в режиме окна и все действия будут происходить в нем
+    #запускаем браузер Хром - запуск будет в режиме окна и все действия будут происходить в нем
     #driver = webdriver.Chrome()
 
     # 2-й вариант запускаем Хром в безоконном режиме (все работает точно накже, но в фоне мы ничего не видим)
