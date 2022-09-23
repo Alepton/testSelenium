@@ -16,13 +16,13 @@ bot = telebot.TeleBot('5669254611:AAH3HMo0swKrZHwjYUIegUFcND0o7wC1L0I')
 @bot.message_handler(commands=['start'])
 def start(message):
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
-    btn1 = types.KeyboardButton('Алеся')
+    btn1 = types.KeyboardButton('Алеся')    #Алеся None chat_id: 5187570150
     btn2 = types.KeyboardButton('Даша')
-    btn3 = types.KeyboardButton('Виктория')
-    btn4 = types.KeyboardButton('Мартина')
-    btn5 = types.KeyboardButton('Ольга')
-    btn6 = types.KeyboardButton('Наталья')
-    btn7 = types.KeyboardButton('Анастасия')
+    btn3 = types.KeyboardButton('Виктория') #Виктория None chat_id: 5144423622
+    btn4 = types.KeyboardButton('Мартина') #Martina Kras chat_id: 933323154
+    btn5 = types.KeyboardButton('Ольга')   #Olga Rogozina chat_id: 5135134381
+    btn6 = types.KeyboardButton('Наталья') #natalli urban chat_id: 1174282766
+    btn7 = types.KeyboardButton('Анастасия') #chat_id: 5720461411?
     markup.add(btn1, btn2, btn3, btn4, btn5, btn6, btn7)
     send_mess = f"<b>Привет {message.from_user.first_name} {message.from_user.last_name}</b>\nЯ помогу вам посмотреть ваши стрижки за сегодня\nВыберите имя мастера:"
     bot.send_message(message.chat.id, send_mess, parse_mode='html', reply_markup=markup)
@@ -36,7 +36,9 @@ def mess(message):
 
     def final_message(master_name):
         bot.send_message(message.chat.id, 'Получаю данные с сервера, это может занять несколько минут, пожалуйста подождите...', parse_mode='html')
-        bot.send_message(message.chat.id, salary(master_name), parse_mode='html')
+        sal = salary(master_name)
+        bot.send_message(message.chat.id, sal, parse_mode='html')
+        bot.send_message('657253505', sal, parse_mode='html')
 
     if get_message_bot == 'Алеся':
         final_message('Алеся')
