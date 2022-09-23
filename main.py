@@ -15,15 +15,16 @@ bot = telebot.TeleBot('5669254611:AAH3HMo0swKrZHwjYUIegUFcND0o7wC1L0I')
 
 @bot.message_handler(commands=['start'])
 def start(message):
-    markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
-    btn1 = types.KeyboardButton('Алеся')    #Алеся None chat_id: 5187570150
-    btn2 = types.KeyboardButton('Даша')
-    btn3 = types.KeyboardButton('Виктория') #Виктория None chat_id: 5144423622
-    btn4 = types.KeyboardButton('Мартина') #Martina Kras chat_id: 933323154
-    btn5 = types.KeyboardButton('Ольга')   #Olga Rogozina chat_id: 5135134381
-    btn6 = types.KeyboardButton('Наталья') #natalli urban chat_id: 1174282766
-    btn7 = types.KeyboardButton('Анастасия') #chat_id: 5720461411?
-    markup.add(btn1, btn2, btn3, btn4, btn5, btn6, btn7)
+    markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
+    btn = types.KeyboardButton('Показать мои стрижки')
+    # btn1 = types.KeyboardButton('Алеся')    #Алеся None chat_id: 5187570150
+    # btn2 = types.KeyboardButton('Даша')
+    # btn3 = types.KeyboardButton('Виктория') #Виктория None chat_id: 5144423622
+    # btn4 = types.KeyboardButton('Мартина') #Martina Kras chat_id: 933323154
+    # btn5 = types.KeyboardButton('Ольга')   #Olga Rogozina chat_id: 5135134381
+    # btn6 = types.KeyboardButton('Наталья') #natalli urban chat_id: 1174282766
+    # btn7 = types.KeyboardButton('Анастасия') #chat_id: 5720461411?
+    markup.add(btn)
     send_mess = f"<b>Привет {message.from_user.first_name} {message.from_user.last_name}</b>\nЯ помогу вам посмотреть ваши стрижки за сегодня\nВыберите имя мастера:"
     bot.send_message(message.chat.id, send_mess, parse_mode='html', reply_markup=markup)
 
@@ -40,29 +41,59 @@ def mess(message):
         bot.send_message(message.chat.id, sal, parse_mode='html')
         bot.send_message('657253505', sal, parse_mode='html')
 
-    if get_message_bot == 'Алеся':
-        final_message('Алеся')
+    if get_message_bot == 'Показать мои стрижки':
+        if message.chat.id == 5187570150:    #Алеся None chat_id: 5187570150
+            final_message('Алеся')
 
-    elif get_message_bot == 'Даша':
-        final_message('Даша')
+        elif message.chat.id == 6572535051:
+            final_message('Даша')
 
-    elif get_message_bot == 'Виктория':
-        final_message('Виктория')
+        elif message.chat.id == 5144423622:  #Виктория None chat_id: 5144423622
+            final_message('Виктория')
 
-    elif get_message_bot == 'Мартина':
-        final_message('Мартина')
+        elif message.chat.id == 933323154:  #Martina Kras chat_id: 933323154
+            final_message('Мартина')
 
-    elif get_message_bot == 'Ольга':
-        final_message('Ольга')
+        elif message.chat.id == 5135134381:  #Olga Rogozina chat_id: 5135134381
+            final_message('Ольга')
 
-    elif get_message_bot == 'Наталья':
-        final_message('Наталья')
+        elif message.chat.id == 1174282766:  #natalli urban chat_id: 1174282766
+            final_message('Наталья')
 
-    elif get_message_bot == 'Анастасия':
-        final_message('Анастасия')
+        elif message.chat.id == 6572535051:
+            final_message('Анастасия')
+
+        elif message.chat.id == 657253505:
+            final_message('Наталья')
+
+        else:
+            bot.send_message(message.chat.id,
+                             'Что-то пошло не так) Вы можете посмотреть только свои стрижки, нажав кнопку ниже',
+                             parse_mode='html')
+
+    # if get_message_bot == 'Алеся':
+    #     final_message('Алеся')
+    #
+    # elif get_message_bot == 'Даша':
+    #     final_message('Даша')
+    #
+    # elif get_message_bot == 'Виктория':
+    #     final_message('Виктория')
+    #
+    # elif get_message_bot == 'Мартина':
+    #     final_message('Мартина')
+    #
+    # elif get_message_bot == 'Ольга':
+    #     final_message('Ольга')
+    #
+    # elif get_message_bot == 'Наталья':
+    #     final_message('Наталья')
+    #
+    # elif get_message_bot == 'Анастасия':
+    #     final_message('Анастасия')
 
     else:
-        bot.send_message(message.chat.id, 'Что-то пошло не так) Выберите имя мастера, нажав кнопку ниже', parse_mode='html')
+        bot.send_message(message.chat.id, 'Что-то пошло не так) Вы можете посмотреть только свои стрижки, нажав кнопку ниже', parse_mode='html')
     bot.send_message('657253505', f"{message.from_user.first_name} {message.from_user.last_name} chat_id: {message.chat.id}", parse_mode='html')
 # функция расчета з/п
 def salary(master_id):
