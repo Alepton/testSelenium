@@ -25,7 +25,7 @@ def start(message):
     # btn6 = types.KeyboardButton('Наталья') #natalli urban chat_id: 1174282766
     # btn7 = types.KeyboardButton('Анастасия') #chat_id: 5720461411?
     markup.add(btn)
-    send_mess = f"<b>Привет {message.from_user.first_name} {message.from_user.last_name}</b>\nЯ помогу вам посмотреть ваши стрижки за сегодня\nВыберите имя мастера:"
+    send_mess = f"<b>Привет {message.from_user.first_name} {message.from_user.last_name}</b>\nЯ помогу вам посмотреть ваши стрижки за сегодня\nНажмите на кнопку ниже:"
     bot.send_message(message.chat.id, send_mess, parse_mode='html', reply_markup=markup)
 
 
@@ -60,11 +60,11 @@ def mess(message):
         elif message.chat.id == 1174282766:  #natalli urban chat_id: 1174282766
             final_message('Наталья')
 
-        elif message.chat.id == 6572535051:
+        elif message.chat.id == 5720461411:  #chat_id: 5720461411
             final_message('Анастасия')
 
         elif message.chat.id == 657253505:
-            final_message('Наталья')
+            final_message('')
 
         else:
             bot.send_message(message.chat.id,
@@ -169,7 +169,7 @@ def salary(master_id):
     #     print(el.text)
 
     # итоговое сообщение
-    salary_massage = f'{today}\n'
+    salary_massage = f'{today}, мастер: {master_id}\n'
     # счетчик зп
     salary_count = 0
     # перебираем все строки с услугами и делаем нужную выборку
