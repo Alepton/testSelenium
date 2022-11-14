@@ -45,7 +45,7 @@ def mess(message):
         if message.chat.id == 5187570150:    #Алеся None chat_id: 5187570150
             final_message('Алеся')
 
-        elif message.chat.id == 6572535051:
+        elif message.chat.id == 1757264291: # даша None chat_id: 1757264291
             final_message('Даша')
 
         elif message.chat.id == 5144423622:  #Виктория None chat_id: 5144423622
