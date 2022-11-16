@@ -64,7 +64,7 @@ def mess(message):
             final_message('Анастасия')
 
         elif message.chat.id == 657253505:
-            final_message('')
+            final_message('Анастасия')
 
         else:
             bot.send_message(message.chat.id,
@@ -98,7 +98,7 @@ def mess(message):
 # функция расчета з/п
 def salary(master_id):
     #запускаем браузер Хром - запуск будет в режиме окна и все действия будут происходить в нем
-    driver = webdriver.Chrome()
+    #driver = webdriver.Chrome()
 
     # 2-й вариант запускаем Хром в безоконном режиме (все работает точно накже, но в фоне мы ничего не видим)
     # chrome_options = Options()
@@ -107,14 +107,14 @@ def salary(master_id):
     # driver.maximize_window()
 
     # 3-й вариант код для запуска на heroku
-    # chrome_options = webdriver.ChromeOptions()
-    # chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-    # chrome_options.add_argument("--headless")
-    # chrome_options.add_argument("--disable-dev-shm-usage")
-    # chrome_options.add_argument("--no-sandbox")
-    #
-    # driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
-    # driver.maximize_window()
+    chrome_options = webdriver.ChromeOptions()
+    chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+    chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--disable-dev-shm-usage")
+    chrome_options.add_argument("--no-sandbox")
+
+    driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
+    driver.maximize_window()
 
 
     # chromdriver должен быть таким же версии как и тот что на компе
