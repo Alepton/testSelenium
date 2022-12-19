@@ -6,9 +6,14 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
+from webdriver_manager.chrome import ChromeDriverManager
+
 import telebot
 from telebot import types
 import os
+
+#вебинар
+#https://live.skillbox.ru/webinars/code/parser-na-python-dobyvaem-dannye-s-pomoshyu-selenium300922/
 
 bot = telebot.TeleBot('5669254611:AAH3HMo0swKrZHwjYUIegUFcND0o7wC1L0I')
 
@@ -100,6 +105,12 @@ def salary(master_id):
     #запускаем браузер Хром - запуск будет в режиме окна и все действия будут происходить в нем
     #driver = webdriver.Chrome()
 
+    # вариант с запуском через exe файл и ChromeDriverManager().install()
+    chrome_options = Options()
+    chrome_options.add_argument("--headless") # включаем безоконный режим
+    driver = webdriver.Chrome(ChromeDriverManager().install(), options=chrome_options)
+    driver.maximize_window()
+
     # 2-й вариант запускаем Хром в безоконном режиме (все работает точно накже, но в фоне мы ничего не видим)
     # chrome_options = Options()
     # chrome_options.add_argument("--headless") # включаем безоконный режим
@@ -107,14 +118,14 @@ def salary(master_id):
     # driver.maximize_window()
 
     # 3-й вариант код для запуска на heroku
-    chrome_options = webdriver.ChromeOptions()
-    chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-    chrome_options.add_argument("--headless")
-    chrome_options.add_argument("--disable-dev-shm-usage")
-    chrome_options.add_argument("--no-sandbox")
+    # chrome_options = webdriver.ChromeOptions()
+    # chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+    # chrome_options.add_argument("--headless")
+    # chrome_options.add_argument("--disable-dev-shm-usage")
+    # chrome_options.add_argument("--no-sandbox")
 
-    driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
-    driver.maximize_window()
+    #driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
+    #driver.maximize_window()
 
 
     # chromdriver должен быть таким же версии как и тот что на компе
